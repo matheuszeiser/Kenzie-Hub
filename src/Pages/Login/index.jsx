@@ -18,7 +18,7 @@ function Login() {
           <input placeholder="Your best email" />
           <label>Password</label>
           <input type="password" placeholder="Password" />
-          <Button>Login</Button>
+          <Button onClick={() => handleNav("/home")}>Login</Button>
           <span>Don't have a registration?</span>
           <Button graySchema onClick={() => handleNav("/Register")}>
             Register

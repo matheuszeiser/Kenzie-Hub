@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 export const ThemeTitle = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: ${props => props.width};
   margin: ${props => props.margin};
 
