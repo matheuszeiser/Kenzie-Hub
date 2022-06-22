@@ -37,6 +37,9 @@ export const FormLogin = styled.form`
   input{
     margin-bottom: 10px;
   }
+  label > span{
+    color: red;
+  }
 `;
 
 const appear = keyframes`

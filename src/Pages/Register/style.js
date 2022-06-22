@@ -1,17 +1,43 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+export const InputRegister = styled.input`
+   
+  width: 324px;
+
+  background-color: var(--gray2);
+  color: var(--white);
+
+  padding: 10.5px 2.69px 10.5px 16.24px;
+  margin-bottom: 5px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--white);
+
+  ${(props) =>
+    props.error &&
+    css`
+      border-color: var(--red);
+      color: var(--red);
+    `}
+
+  &::placeholder {
+    color: var(--gray1);
+    background-color: var(--gray2);
+  }
+`;
 
 export const ThemeTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: ${props => props.width};
-  margin: ${props => props.margin};
+  width: ${(props) => props.width};
+  margin: ${(props) => props.margin};
 
   h1 {
     color: var(--pink);
   }
 
-  button{
+  button {
     margin: auto;
     width: 68px;
     height: 40px;
@@ -30,19 +56,17 @@ export const FormCadastro = styled.form`
   h2 {
     margin-bottom: 30px;
   }
-
-  input,
   select {
     width: 324px;
 
     background-color: var(--gray2);
     color: var(--white);
-    
+
     padding: 10.5px 2.69px 10.5px 16.24px;
     margin-bottom: 5px;
     border-radius: 8px;
 
-    &::placeholder{
+    &::placeholder {
       color: var(--gray1);
     }
   }
@@ -53,20 +77,30 @@ export const FormCadastro = styled.form`
   }
   label {
     width: 324px;
-    text-align: left;
+
     margin-bottom: 3px;
+    padding-right: 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 18px;
   }
   button {
     margin-top: 20px;
   }
-  input {
+  /* input {
     margin-bottom: 10px;
-  }
-  label + input{
+  } */
+  label + input {
     margin-bottom: 20px;
   }
+  label > span {
+    color: var(--red);
+  }
 
-  
+ 
 `;
 
 const appear = keyframes`
@@ -100,6 +134,6 @@ export const Container = styled.div`
   align-items: center;
 
   width: 100%;
-  
+
   animation: ${appear} 2s;
 `;

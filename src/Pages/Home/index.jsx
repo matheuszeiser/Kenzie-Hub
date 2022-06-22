@@ -1,26 +1,34 @@
-import { useHistory } from "react-router";
+import { Redirect } from "react-router";
 import { ThemeTitle } from "../Register/style";
 import { ContainerList, Main, ThemeWelcome } from "./style";
 import { BiPlus } from "react-icons/bi";
-import CardTechnology from "./CardTechnology";
+import CardTechnology from "../../Components/CardTechnology";
 
-function Home() {
-  const history = useHistory();
+function Home({ auth, setAuth }) {
 
-  const handleNav = (path) => {
-    return history.push(path);
-  };
+  if (!auth) {
+    return <Redirect to="/" />;
+  }
+
+  const user = JSON.parse(localStorage.getItem("@KenzieHub:user"))
 
   return (
     <Main>
       <ThemeTitle width="900px" margin="21.5px 0">
         <h1>Kenzie Hub</h1>
-        <button onClick={() => handleNav("/")}>Exit</button>
+        <button
+          onClick={() => {
+            setAuth(false);
+            localStorage.removeItem("@KenzieHub:token")
+          }}
+        >
+          Log Out
+        </button>
       </ThemeTitle>
       <hr />
       <ThemeWelcome>
-        <h2>Hello, Matheus Zeiser!</h2>
-        <span>First Module</span>
+        <h2>Hello, {`${user.name}`}!</h2>
+        <span>{`${user.course_module}`}</span>
       </ThemeWelcome>
       <hr />
       <ContainerList>
