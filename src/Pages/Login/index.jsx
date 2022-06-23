@@ -26,12 +26,9 @@ function Login({auth, setAuth}) {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  console.log(errors)
-
+    
   const onSubmitFunction = (data) => {
-    console.log(data);
-    api.post("https://kenziehub.herokuapp.com/sessions", data).then(resp => {
+    api.post("/sessions", data).then(resp => {
       const { token, user } = resp.data;
 
       localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
@@ -59,7 +56,7 @@ function Login({auth, setAuth}) {
           <label>Email {!!errors.email?.message && <span> - {errors.email.message}</span>}</label>
           <input value={save?.email} placeholder="email@mail.com" {...register("email")} />
           <label>Password {!!errors.password?.message && <span> - {errors.password.message}</span>}</label>
-          <input value={save?.password} type="password" placeholder="Password" {...register("password")}/>
+          <input type="password" placeholder="Password" {...register("password")}/>
           <Button type="submit" >Log In</Button>
           <span>Don't have a registration?</span>
           <Button

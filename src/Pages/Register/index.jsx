@@ -47,8 +47,6 @@ function Register({ auth }) {
     resolver: yupResolver(schema),
   });
 
-  console.log(errors);
-
   const onSubmitFunction = ({
     name,
     email,
@@ -58,30 +56,23 @@ function Register({ auth }) {
     course_module,
   }) => {
     const user = { name, email, password, bio, contact, course_module };
-    const save = { email, password}
+    const save = { email };
     api
-      .post("https://kenziehub.herokuapp.com/users", user)
-      .then((resp) => {
-        console.log(resp.data)
-        toast.success("Successful register");
-        localStorage.setItem("user", JSON.stringify(save))
-        setTimeout(()=>{
-          history.push("/")
-        }, 2800)
+      .post("/users", user)
+      .then((_) => {
+        localStorage.setItem("user", JSON.stringify(save));
+        toast.success("Successful register")
+        setTimeout(() => {
+          history.push("/");
+        }, 2800);
       })
       .catch((err) => {
-        console.log(err)
-        toast.error(`${err.response.data.message}`)
+        toast.error(`${err.response.data.message}`);
       });
-    console.log(user);
-
-    /* setTimeout(() => {
-      history.push("/");
-    }, 2000); */
   };
 
-  if(auth){
-    return <Redirect to="/home"/>
+  if (auth) {
+    return <Redirect to="/home" />;
   }
 
   return (
