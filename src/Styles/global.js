@@ -11,7 +11,7 @@ export default createGlobalStyle`
 
     :root{
         --black: #121214;
-        --pink: #FF577F;
+        --pink: #FF577F; 
         --gray1: #868E96;
         --gray2: #343B41;
         --gray3: #212529;

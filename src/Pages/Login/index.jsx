@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../data/api";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 
-function Login({auth, setAuth}) {
+function Login({ auth, setAuth }) {
   const history = useHistory();
 
   const handleNav = (path) => {
@@ -26,26 +26,29 @@ function Login({auth, setAuth}) {
   } = useForm({
     resolver: yupResolver(schema),
   });
-    
+
   const onSubmitFunction = (data) => {
-    api.post("/sessions", data).then(resp => {
-      const { token, user } = resp.data;
+    api
+      .post("/sessions", data)
+      .then((resp) => {
+        const { token, user } = resp.data;
 
-      localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
+        localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
 
-      localStorage.setItem("@KenzieHub:user", JSON.stringify(user))
+        localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
 
-      setAuth(true)
+        setAuth(true);
 
-      return history.push("/home");
-    }).catch((err) => toast.error("Verify your email or password"))
+        return history.push("/home");
+      })
+      .catch((_) => toast.error("Verify your email or password"));
   };
 
-  if(auth){
-    return <Redirect to="/home"/>
+  if (auth) {
+    return <Redirect to="/home" />;
   }
 
-  const save = JSON.parse(localStorage.getItem("user"))
+  const save = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Container>
@@ -53,16 +56,29 @@ function Login({auth, setAuth}) {
       <ContainerForm>
         <FormLogin onSubmit={handleSubmit(onSubmitFunction)}>
           <h2>Login</h2>
-          <label>Email {!!errors.email?.message && <span> - {errors.email.message}</span>}</label>
-          <input value={save?.email} placeholder="email@mail.com" {...register("email")} />
-          <label>Password {!!errors.password?.message && <span> - {errors.password.message}</span>}</label>
-          <input type="password" placeholder="Password" {...register("password")}/>
-          <Button type="submit" >Log In</Button>
+          <label>
+            Email{" "}
+            {!!errors.email?.message && <span> - {errors.email.message}</span>}
+          </label>
+          <input
+            value={save?.email}
+            placeholder="email@mail.com"
+            {...register("email")}
+          />
+          <label>
+            Password{" "}
+            {!!errors.password?.message && (
+              <span> - {errors.password.message}</span>
+            )}
+          </label>
+          <input
+            type="password"
+            placeholder="Password"
+            {...register("password")}
+          />
+          <Button type="submit">Log In</Button>
           <span>Don't have a registration?</span>
-          <Button
-            graySchema
-            onClick={() => handleNav("/Register")}
-          >
+          <Button graySchema onClick={() => handleNav("/Register")}>
             Register
           </Button>
         </FormLogin>

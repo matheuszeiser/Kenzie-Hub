@@ -4,31 +4,30 @@ import Login from "../Pages/Login";
 import Home from "../Pages/Home";
 import { useEffect, useState } from "react";
 
-function Routes({setUser, user}){
+function Routes({ setUser, user }) {
+  const [auth, setAuth] = useState(false);
 
-    const [auth, setAuth] = useState(false)
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("@KenzieHub:token"));
 
-    useEffect(()=>{
-        const token = JSON.parse(localStorage.getItem("@KenzieHub:token"));
+    if (token) {
+      return setAuth(true);
+    }
+  }, [auth]);
 
-        if(token){
-            return setAuth(true);
-        }
-    }, [auth])
-
-    return(
-        <Switch>
-            <Route exact path="/">
-                <Login setAuth={setAuth} auth={auth} user={user}/>
-            </Route>
-            <Route path="/register">
-                <Register auth={auth} user={user} setUser = {setUser} />
-            </Route>
-            <Route path="/home">
-                <Home setAuth={setAuth} auth={auth}/>
-            </Route>
-        </Switch>
-    )
+  return (
+    <Switch>
+      <Route exact path="/">
+        <Login setAuth={setAuth} auth={auth} user={user} />
+      </Route>
+      <Route path="/register">
+        <Register auth={auth} user={user} setUser={setUser} />
+      </Route>
+      <Route path="/home">
+        <Home setAuth={setAuth} auth={auth} />
+      </Route>
+    </Switch>
+  );
 }
 
-export default Routes
+export default Routes;
